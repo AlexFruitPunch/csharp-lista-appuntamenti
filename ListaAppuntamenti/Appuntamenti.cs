@@ -12,7 +12,7 @@ namespace ListaAppuntamenti
         private string nome;
         private string localitaAppuntamento;
 
-        //costruttore
+        //------------ costruttore ------------
         public Appuntamenti(DateTime dataEOra, string nome, string localitaAppuntamento)
         {
             this.dataEOra = dataEOra;
@@ -47,7 +47,14 @@ namespace ListaAppuntamenti
             }
         }
 
-        //------------- Fine Metodi -------------
+        public void StampAppuntamento()
+        {
+            Console.WriteLine("----- Appuntamento -----");
+            Console.WriteLine("Data: " + dataEOra);
+            Console.WriteLine("Informazioni: " + nome);
+            Console.WriteLine("Luogo: " + localitaAppuntamento);
+        }
+
 
         //------------- Getters & Setters -------------
 

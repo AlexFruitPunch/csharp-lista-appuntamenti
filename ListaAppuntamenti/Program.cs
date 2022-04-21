@@ -6,70 +6,79 @@ Console.WriteLine("Benvenuto . . . ");
 
 //Corpo del programma
 
-//Data e Ora
-Console.WriteLine("Inserisci la data e l'ora del tuo appuntamento");
-DateTime miadataEOra = DateTime.Parse(Console.ReadLine());
+//dichiarazione della lista
 
-//Nome
-Console.WriteLine("Inserisci un nome all'appuntamento");
-string? mioNome = Console.ReadLine();
-while (mioNome == null)
+List<Appuntamenti> listAppuntamenti = new List<Appuntamenti>();
+
+Console.WriteLine("Quanti appuntamenti vuoi inserire ? ");
+int? numeroAppuntamenti = int.Parse(Console.ReadLine());
+while (numeroAppuntamenti == null)
 {
-   mioNome = Console.ReadLine();
+    numeroAppuntamenti = int.Parse(Console.ReadLine());
 }
 
-//Località
-Console.WriteLine("Inserisci il luogo dell'appuntamento");
-string? miaLocalitaAppuntamento = Console.ReadLine();
-while (miaLocalitaAppuntamento == null)
+for(int i = 0; i < numeroAppuntamenti; i++)
 {
-    miaLocalitaAppuntamento = Console.ReadLine();
-}
+    //Data e Ora
+    Console.WriteLine("Inserisci la data e l'ora del tuo appuntamento");
+    DateTime miadataEOra = DateTime.Parse(Console.ReadLine());
 
-Appuntamenti mieiAppuntamenti = new Appuntamenti(miadataEOra, mioNome, miaLocalitaAppuntamento);
-
-/* cattura dell'eccezione sul controllo appuntamenti
-bool controlloImput = false;
-while(controlloImput == false){
-    try
-        {
-        
-        } 
-    catch (ArgumentOutOfRangeException ex)
-        {
-            Console.WriteLine("Reinserisci la data corretta");
-            SetDataEOra(miadataEOra);
-        }
-}
-*/
-
-Console.WriteLine("La data inserita va bene? vuoi cambiarla ? [si/no]");
-string? siNoUtente = Console.ReadLine().ToLower();
-while (siNoUtente == null)
-{
-    siNoUtente = Console.ReadLine();
-}
-
-bool controlloImput = false;
-while (controlloImput == false) { 
-    switch (siNoUtente)
+    //Nome
+    Console.WriteLine("Inserisci un nome all'appuntamento");
+    string? mioNome = Console.ReadLine();
+    while (mioNome == null)
     {
-        case "si":
-            Console.WriteLine("inserisci una nuova data");
-            miadataEOra = DateTime.Parse(Console.ReadLine());
-            mieiAppuntamenti.SetDataEOra(miadataEOra);
-            controlloImput = true;
-            break;
-        case "no":
-            controlloImput = true;
-            break;
-        default:
-            Console.WriteLine("imput errato, reinserisci la tua scelta");
-            siNoUtente = Console.ReadLine().ToLower();
-            while (siNoUtente == null)
-            {
-                siNoUtente = Console.ReadLine();
-            }
-            break;
+        mioNome = Console.ReadLine();
     }
+
+    //Località
+    Console.WriteLine("Inserisci il luogo dell'appuntamento");
+    string? miaLocalitaAppuntamento = Console.ReadLine();
+    while (miaLocalitaAppuntamento == null)
+    {
+        miaLocalitaAppuntamento = Console.ReadLine();
+    }
+
+    Appuntamenti mioAppuntamento = new Appuntamenti(miadataEOra, mioNome, miaLocalitaAppuntamento);
+
+    listAppuntamenti.Add(mioAppuntamento);
+
+    //inserimento scelta se modificare o meno una data
+    Console.WriteLine("La data inserita va bene? vuoi cambiarla ? [si/no]");
+    string? siNoUtente = Console.ReadLine().ToLower();
+    while (siNoUtente == null)
+    {
+        siNoUtente = Console.ReadLine();
+    }
+
+    //Controllo sulla scelta di modificare o no la data appena inserita
+    bool controlloImput = false;
+    while (controlloImput == false)
+    {
+        switch (siNoUtente)
+        {
+            case "si":
+                Console.WriteLine("inserisci una nuova data");
+                miadataEOra = DateTime.Parse(Console.ReadLine());
+                mioAppuntamento.SetDataEOra(miadataEOra);
+                controlloImput = true;
+                break;
+            case "no":
+                controlloImput = true;
+                break;
+            default:
+                Console.WriteLine("imput errato, reinserisci la tua scelta");
+                siNoUtente = Console.ReadLine().ToLower();
+                while (siNoUtente == null)
+                {
+                    siNoUtente = Console.ReadLine();
+                }
+                break;
+        }
+    }
+}
+
+foreach(Appuntamenti appuntamenti in listAppuntamenti)
+{
+    appuntamenti.StampAppuntamento();
 }
