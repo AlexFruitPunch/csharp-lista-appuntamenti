@@ -13,20 +13,29 @@ namespace ListaAppuntamenti
         private string localitaAppuntamento;
 
         //costruttore
-        public Appuntamenti(DateTime dataeOra, string nome, string localitaAppuntamento)
+        public Appuntamenti(DateTime dataEOra, string nome, string localitaAppuntamento)
         {
-            this.dataEOra = dataeOra;
+            this.dataEOra = dataEOra;
+            ControlloData();
             this.nome = nome;
             this.localitaAppuntamento = localitaAppuntamento;
         }
 
         //------------- Metodi -------------
 
-
+        public void ControlloData()
+        {
+            DateTime dataOdierna = DateTime.Now;
+            if (dataEOra <= dataOdierna)
+            {
+                throw new ArgumentOutOfRangeException("Non puoi inserire un appuntamento nel passato");
+            }
+        }
 
         //------------- Fine Metodi -------------
 
         //------------- Getters & Setters -------------
+
         //getters
 
         public DateTime GetDataEOra()
@@ -48,6 +57,7 @@ namespace ListaAppuntamenti
 
         public void SetDataEOra(DateTime dataEOra)
         {
+            ControlloData();
             this.dataEOra = dataEOra;
         }
 
