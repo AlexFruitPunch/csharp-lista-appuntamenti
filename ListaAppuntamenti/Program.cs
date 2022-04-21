@@ -39,9 +39,26 @@ for(int i = 0; i < numeroAppuntamenti; i++)
         miaLocalitaAppuntamento = Console.ReadLine();
     }
 
-    Appuntamenti mioAppuntamento = new Appuntamenti(miadataEOra, mioNome, miaLocalitaAppuntamento);
+    //Appuntamenti mioAppuntamento = new Appuntamenti(miadataEOra, mioNome, miaLocalitaAppuntamento);
 
-    listAppuntamenti.Add(mioAppuntamento);
+    bool isDataOk = false;
+
+    while (isDataOk == false)
+    {
+
+        try
+        {
+            Appuntamenti appuntamentoInserito = new Appuntamenti(miadataEOra, mioNome, miaLocalitaAppuntamento);
+
+            listAppuntamenti.Add(appuntamentoInserito);
+
+            isDataOk = true;
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
 
     //inserimento scelta se modificare o meno una data
     Console.WriteLine("La data inserita va bene? vuoi cambiarla ? [si/no]");
@@ -60,7 +77,7 @@ for(int i = 0; i < numeroAppuntamenti; i++)
             case "si":
                 Console.WriteLine("inserisci una nuova data");
                 miadataEOra = DateTime.Parse(Console.ReadLine());
-                mioAppuntamento.SetDataEOra(miadataEOra);
+                listAppuntamenti[i].SetDataEOra(miadataEOra);
                 controlloImput = true;
                 break;
             case "no":
