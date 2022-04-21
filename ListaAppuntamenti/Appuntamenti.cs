@@ -16,7 +16,22 @@ namespace ListaAppuntamenti
         public Appuntamenti(DateTime dataEOra, string nome, string localitaAppuntamento)
         {
             this.dataEOra = dataEOra;
-            ControlloData();
+
+            //Gestione Eccezione sulla data
+            bool controlloImput = false;
+            while (controlloImput == false)
+            {
+                try
+                {
+                    ControlloData();
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    Console.WriteLine("Reinserisci la data corretta");
+                    this.dataEOra = DateTime.Parse(Console.ReadLine());
+                }
+            }
+
             this.nome = nome;
             this.localitaAppuntamento = localitaAppuntamento;
         }
